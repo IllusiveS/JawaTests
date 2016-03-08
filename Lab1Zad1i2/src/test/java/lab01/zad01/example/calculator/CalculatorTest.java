@@ -28,7 +28,7 @@ public class CalculatorTest {
 	}
 	@Test
 	public void divTest() {
-		assertThat(calc.div(6, 2), is(equalTo(0)));
+		assertThat(calc.div(6, 2), is(equalTo(3)));
 	}
 	@Test
 	public void greaterTest() {
