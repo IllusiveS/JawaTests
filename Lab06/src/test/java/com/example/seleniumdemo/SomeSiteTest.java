@@ -39,7 +39,12 @@ public class SomeSiteTest {
 		driver.findElement(By.id("masthead-search-term")).sendKeys("rickroll");
 		driver.findElement(By.id("search-btn")).click();
 		driver.findElement(By.linkText("Rick Astley - Never Gonna Give You Up")).click();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@AfterClass
