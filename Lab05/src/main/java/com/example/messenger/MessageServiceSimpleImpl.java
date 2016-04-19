@@ -4,8 +4,6 @@ import java.util.Random;
 
 public class MessageServiceSimpleImpl implements MessageService {
 
-	private Random random = new Random();
-
 	public ConnectionStatus checkConnection(String server) {
 		if (!server.endsWith(".pl")) {
 			return ConnectionStatus.FAILURE;
