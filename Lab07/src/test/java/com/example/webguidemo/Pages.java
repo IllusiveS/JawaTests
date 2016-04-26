@@ -11,7 +11,6 @@ public class Pages {
 	private Home home;
 
 	public Pages(WebDriverProvider driverProvider) {
-		super();
 		this.driverProvider = driverProvider;
 	}
 

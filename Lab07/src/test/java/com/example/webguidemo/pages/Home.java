@@ -5,6 +5,8 @@ import java.util.concurrent.TimeUnit;
 import org.jbehave.web.selenium.WebDriverPage;
 import org.jbehave.web.selenium.WebDriverProvider;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.w3c.dom.Element;
 
 public class Home extends WebDriverPage {
 
@@ -26,7 +28,14 @@ public class Home extends WebDriverPage {
 		findElement(By.name("country")).sendKeys(country);
 		findElement(By.name("company")).sendKeys(company);
 		findElement(By.name("message")).sendKeys(message);
-		findElement(By.className("dt-btn dt-btn-m dt-btn-submit")).click();
+		findElement(By.xpath("//*[@id=\"presscore-contact-form-widget-3\"]/form/p/a[1]")).click();
 	}
-	
+
+	public boolean checkForErrorMsg() {
+		WebElement el = findElement(By.className("formErrorContent"));
+		if(el != null) {
+			return true;
+		}
+		else return false;
+	}
 }

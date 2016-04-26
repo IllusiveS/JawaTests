@@ -3,6 +3,7 @@ package com.example.webguidemo;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
+import org.junit.Assert;
 
 public class TestSteps {
 	
@@ -25,7 +26,11 @@ public class TestSteps {
     }
 
     @Then("form is accepted")
-    public void formIsAccepted(){
-        
+    public void formIsAccepted() {
+	    Assert.assertEquals(true, pages.home().checkForErrorMsg());
     }
+	@Then("form is rejected")
+	public void formIsRejected() {
+		Assert.assertEquals(true, pages.home().checkForErrorMsg());
+	}
 }
