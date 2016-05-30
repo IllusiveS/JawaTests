@@ -10,15 +10,18 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.example.restservicedemo.domain.Book;
+import com.example.restservicedemo.service.BookManager;
 
-@Path("car")
-public class CarFakeRESTService {	
-	
+@Path("book")
+public class BookRESTService {
+
+	private BookManager bm = new BookManager();
+
 	@GET
-	@Path("/{carId}")
+	@Path("/{bookId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Book getCar(@PathParam("carId") Long id){
-		return new Book(1L, "Opel", "Corsa", 2005);
+	public Book getCar(@PathParam("bookId") Long id){
+		return bm.getBook(id);
 	}
 	
 	@POST
@@ -27,6 +30,7 @@ public class CarFakeRESTService {
 	public Response createTrackInJSON(Book book) {
  
 		String result = "Book saved: " + book;
+		bm.addBook(book);
 		return Response.status(201).entity(result).build(); 
 	}
 

@@ -9,6 +9,7 @@ public class Book {
 	private String name;
 	private String author;
 	private int yor;
+	private int owner;
 	
 	public Book(long id, String name, String author, int yor) {
 		super();
@@ -44,6 +45,12 @@ public class Book {
 	}
 	public void setYor(int yor) {
 		this.yor = yor;
+	}
+	public int getOwner() {
+		return owner;
+	}
+	public void setOwner(int owner) {
+		this.owner = owner;
 	}
 	
 }

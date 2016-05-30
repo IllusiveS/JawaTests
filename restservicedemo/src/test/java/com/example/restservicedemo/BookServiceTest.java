@@ -23,23 +23,24 @@ public class BookServiceTest {
 	}
 	
 	@Test
-	public void getCar(){
-		get("/car/0").then().assertThat().body("model", equalTo("Corsa"));
+	public void getBook(){
+		get("/book/1").then().assertThat().body("nazwa", equalTo("Folwark Zwierzęcy"));
 		
-		Book aBook = get("/car/0").as(Book.class);
-		assertThat(aBook.getName(), equalToIgnoringCase("Opel"));
+		Book aBook = get("/book/1").as(Book.class);
+		assertThat(aBook.getName(), equalToIgnoringCase("Folwark Zwierzęcy"));
 	}
 	
-	@Test
-	public void addCar(){
-		
-		Book aBook = new Book(2, "Ford", "Fiesta", 2011);
-		given().
-		       contentType("application/json").
-		       body(aBook).
-		when().	     
-		post("/car/").then().assertThat().statusCode(201).body(containsString("Book saved:"));
-	}
+//	@Test
+//	public void addBook(){
+//
+//		Book aBook = new Book(2, "Nazwa", "Autor", 2011);
+//		aBook.setOwner(1);
+//		given().
+//		       contentType("application/json").
+//		       body(aBook).
+//		when().
+//		post("/book/").then().assertThat().statusCode(201).body(containsString("Book saved:"));
+//	}
 	
 
 }

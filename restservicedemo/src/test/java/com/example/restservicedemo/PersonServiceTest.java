@@ -30,7 +30,7 @@ public class PersonServiceTest {
 		
 		delete("/person/").then().assertThat().statusCode(200);
 		
-		Person person = new Person(1L, PERSON_FIRST_NAME, 1976);
+		Person person = new Person(2L, PERSON_FIRST_NAME, 1976);
 		
 		given().
 	       contentType(MediaType.APPLICATION_JSON).
@@ -38,7 +38,7 @@ public class PersonServiceTest {
 	    when().	     
 	    post("/person/").then().assertThat().statusCode(201);
 				
-		Person rPerson = get("/person/1").as(Person.class);
+		Person rPerson = get("/person/2").as(Person.class);
 		
 		assertThat(PERSON_FIRST_NAME, equalToIgnoringCase(rPerson.getFirstName()));
 		

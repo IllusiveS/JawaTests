@@ -11,12 +11,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.example.restservicedemo.domain.Person;
-import com.example.restservicedemo.service.PersonManager;
+import com.example.restservicedemo.service.BookManager;
 
 @Path("person")
 public class PersonRESTService {	
 	
-	private PersonManager pm = new PersonManager();
+	private BookManager pm = new BookManager();
 	
 	@GET
 	@Path("/{personId}")
@@ -44,7 +44,7 @@ public class PersonRESTService {
 	
 	@DELETE
 	public Response clearPersons(){
-		pm.clearPersons();
+		//pm.clearPersons();
 		return Response.status(200).build();
 	}
 
