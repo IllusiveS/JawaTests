@@ -4,7 +4,9 @@ import static com.jayway.restassured.RestAssured.delete;
 import static com.jayway.restassured.RestAssured.get;
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
+import static org.hamcrest.Matchers.notNullValue;
 
 import javax.ws.rs.core.MediaType;
 
@@ -22,24 +24,52 @@ public class PersonServiceTest {
     public static void setUp(){
 		RestAssured.baseURI = "http://localhost";
 		RestAssured.port = 8080;
-		RestAssured.basePath = "/restservicedemo/api";   	
+		RestAssured.basePath = "/restservicedemo/api";
     }
-	
+
 	@Test
-	public void addPersons(){		
+	public void deletePersons() {
+		delete("/person/").then().assertThat().statusCode(200);
+	}
+
+	@Test
+	public void getPerson(){
+
+		delete("/person/").then().assertThat().statusCode(200);
+
+		Person person = new Person(1L, PERSON_FIRST_NAME, 1976);
+
+		given().
+				contentType(MediaType.APPLICATION_JSON).
+				body(person).
+				when().
+				post("/person/").then().assertThat().statusCode(201);
+		Person rPerson = given().
+				contentType(MediaType.APPLICATION_JSON).
+				when().
+				get("/person/" + PERSON_FIRST_NAME).as(Person.class);
+
+		assertThat(rPerson, notNullValue());
+		assertThat(PERSON_FIRST_NAME, equalToIgnoringCase(rPerson.getFirstName()));
+
+	}
+
+	//@Test
+	public void addPersons(){
 		
 		delete("/person/").then().assertThat().statusCode(200);
 		
-		Person person = new Person(2L, PERSON_FIRST_NAME, 1976);
+		Person person = new Person(1L, PERSON_FIRST_NAME, 1976);
 		
 		given().
 	       contentType(MediaType.APPLICATION_JSON).
 	       body(person).
 	    when().	     
-	    post("/person/").then().assertThat().statusCode(201);
+	        post("/person/").then().assertThat().statusCode(201);
 				
-		Person rPerson = get("/person/2").as(Person.class);
-		
+		Person rPerson = get("/person/1").as(Person.class);
+
+		assertThat(rPerson, notNullValue());
 		assertThat(PERSON_FIRST_NAME, equalToIgnoringCase(rPerson.getFirstName()));
 		
 	}

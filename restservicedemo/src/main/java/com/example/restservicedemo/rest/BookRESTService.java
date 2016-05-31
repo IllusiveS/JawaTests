@@ -1,11 +1,6 @@
 package com.example.restservicedemo.rest;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -17,13 +12,27 @@ public class BookRESTService {
 
 	private BookManager bm = new BookManager();
 
+	@DELETE
+	public Response clearBooks() {
+		bm.clearBooks();
+		return Response.status(200).build();
+	}
+
 	@GET
 	@Path("/{bookId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Book getCar(@PathParam("bookId") Long id){
+	public Book getBookById(@PathParam("bookId") Long id){
 		return bm.getBook(id);
 	}
-	
+
+	@POST
+	@Path("/{bookName}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Book getBookByName(@PathParam("bookName") String name) {
+		return bm.getBookByName(name);
+	}
+
+
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)

@@ -25,7 +25,15 @@ public class PersonRESTService {
 		Person p = pm.getPerson(id);
 		return p;
 	}
-	
+
+	@GET
+	@Path("/{personName}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Person getPersonByName(@PathParam("personName") String name){
+		Person p = pm.getPersonByName(name);
+		return p;
+	}
+
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -44,7 +52,7 @@ public class PersonRESTService {
 	
 	@DELETE
 	public Response clearPersons(){
-		//pm.clearPersons();
+		pm.clearPersons();
 		return Response.status(200).build();
 	}
 

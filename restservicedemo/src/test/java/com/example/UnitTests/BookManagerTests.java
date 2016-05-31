@@ -17,31 +17,10 @@ public class BookManagerTests {
 	protected Book testBook;
 	protected Person testPerson;
 
-	@Before
-	public void setUpTest() {
-		insertTestPerson();
-		insertTestBook();
-	}
-
-	private void insertTestBook() {
-		testBook = new Book();
-		testBook.setName("Akademia pana Kleksa");
-		testBook.setAuthor("Pisarz książek");
-		testBook.setYor(1990);
-		manager.addBook(testBook);
-	}
-
-	private void insertTestPerson() {
-		testPerson = new Person();
-		testPerson.setFirstName("Zbigniew");
-		testPerson.setYob(1990);
-		manager.addPerson(testPerson);
-	}
-
 	@After
 	public void setDownTest() {
-		manager.deleteBook(testBook);
-		manager.deletePerson(testPerson);
+		manager.clearBooks();
+		manager.clearPersons();
 	}
 
 	@Test
@@ -61,9 +40,22 @@ public class BookManagerTests {
 
 	@Test
 	public void checkBookRenting() {
-		Person person = manager.getPerson((long) 1);
-		Book book = manager.getBook((long) 1);
-		manager.rentBook(book, person);
+
+		Person person = new Person();
+		person.setFirstName("Teodor");
+		person.setYob(1981);
+		manager.addPerson(person);
+
+		Book book = new Book();
+		book.setName("Harry Potter i Kamień RESTowy");
+		book.setAuthor("JK Rowling");
+		book.setYor(1995);
+		manager.addBook(book);
+
+		person = manager.getPersonByName("Teodor");
+		book = manager.getBookByName("Harry Potter i Kamień RESTowy");
+
+		Assert.assertEquals(1, manager.rentBook(book, person));
 
 		List<Book> booksFound = manager.getBooksRentedByPerson(person);
 		Assert.assertEquals(1, booksFound.size());
@@ -71,8 +63,53 @@ public class BookManagerTests {
 
 	@Test
 	public void checkBookReturining() {
-		checkBookRenting();
-		Book book = manager.getBook((long) 1);
+
+		Person person = new Person();
+		person.setFirstName("Teodor");
+		person.setYob(1981);
+		manager.addPerson(person);
+
+		Book book = new Book();
+		book.setName("Harry Potter i Kamień RESTowy");
+		book.setAuthor("JK Rowling");
+		book.setYor(1995);
+		manager.addBook(book);
+
+		person = manager.getPersonByName("Teodor");
+		book = manager.getBookByName("Harry Potter i Kamień RESTowy");
+
+		Assert.assertEquals(1, manager.rentBook(book, person));
+
+		List<Book> booksFound = manager.getBooksRentedByPerson(person);
+		Assert.assertEquals(1, booksFound.size());
+
 		Assert.assertEquals(1, manager.returnBook(book));
+		book = manager.getBookByName("Harry Potter i Kamień RESTowy");
+		Assert.assertEquals(0, book.getOwner());
+	}
+
+	@Test
+	public void checkGetBookByName() {
+		Book book = new Book();
+		book.setName("Harry Potter i komnata Hamcresta");
+		book.setAuthor("JK Rowling");
+		book.setYor(1890);
+		manager.addBook(book);
+
+		Book foundBook = manager.getBookByName("Harry Potter i komnata Hamcresta");
+		Assert.assertEquals(book.getAuthor(), foundBook.getAuthor());
+		Assert.assertEquals(book.getYor(), foundBook.getYor());
+	}
+	@Test
+	public void checkGetPersonByName() {
+		Person person = new Person();
+		person.setFirstName("Mietek");
+		person.setYob(1891);
+		manager.addPerson(person);
+
+		Person foundPerson = manager.getPersonByName("Mietek");
+		Assert.assertNotNull(foundPerson);
+		Assert.assertEquals(person.getFirstName(), foundPerson.getFirstName());
+		Assert.assertEquals(person.getYob(), foundPerson.getYob());
 	}
 }
