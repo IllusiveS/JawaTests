@@ -5,6 +5,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.example.restservicedemo.domain.Book;
+import com.example.restservicedemo.domain.Person;
 import com.example.restservicedemo.service.BookManager;
 
 @Path("book")
@@ -19,13 +20,6 @@ public class BookRESTService {
 	}
 
 	@GET
-	@Path("/{bookId}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Book getBookById(@PathParam("bookId") Long id){
-		return bm.getBook(id);
-	}
-
-	@POST
 	@Path("/{bookName}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Book getBookByName(@PathParam("bookName") String name) {
@@ -33,8 +27,17 @@ public class BookRESTService {
 	}
 
 
+
 	@POST
-	@Path("/")
+	@Path("/{bookId}/{personId}")
+	public Response borrowBook(@PathParam("bookId") long bookId, @PathParam("personId") long personId) {
+		Book book = bm.getBook(bookId);
+		Person person = bm.getPerson(personId);
+		bm.rentBook(book, person);
+		return Response.status(200).build();
+	}
+
+	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createTrackInJSON(Book book) {
  

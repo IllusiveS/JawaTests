@@ -1,14 +1,26 @@
 package com.example.restservicedemo.domain;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
+@JsonAutoDetect
 public class Book {
-	
+
+	@JsonProperty("id")
 	private long id;
+
+	@JsonProperty("name")
 	private String name;
+
+	@JsonProperty("author")
 	private String author;
+
+	@JsonProperty("yor")
 	private int yor;
+
 	private int owner;
 	
 	public Book(long id, String name, String author, int yor) {

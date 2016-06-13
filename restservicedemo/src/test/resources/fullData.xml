@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <PERSON ID="0" NAME="Bolek" YOB="1972"/>
+  <PERSON ID="1" NAME="Lolek" YOB="1972"/>
+  <PERSON ID="2" NAME="Tola" YOB="1975"/>
+  <PERSON ID="3" NAME="Reksio" YOB="1975"/>
+
+  <BOOK ID="0" NAME="Harry Potter" AUTHOR="J.K Rowling" YOR="1990"/>
+  <BOOK ID="1" NAME="Łotr" AUTHOR="Trudi Canavan" YOR="1990" OWNER_ID="0"/>
+
+</dataset>
