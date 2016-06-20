@@ -160,8 +160,13 @@ public class PersonServiceTest {
 
 		List<Book> books = new LinkedList<Book>();
 
-		books = Arrays.asList(given().contentType(MediaType.APPLICATION_JSON).body(aPerson)
-				.when().get("/person/borrowed").as(Book[].class));
+		Book[] bookArray =
+				given().
+						contentType(MediaType.APPLICATION_JSON).
+				when().
+						contentType(MediaType.APPLICATION_JSON).get("/person/borrowed/0").as(Book[].class);
+
+		books = Arrays.asList(bookArray);
 		Assert.assertEquals(2, books.size());
 	}
 

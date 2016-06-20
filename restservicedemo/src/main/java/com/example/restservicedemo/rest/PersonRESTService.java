@@ -37,12 +37,11 @@ public class PersonRESTService {
 	}
 
 	@GET
-	@Path("/borrowed")
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/borrowed/{personId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Book> getBooksRented(Person person) {
-//		return pm.getBooksRentedByPerson(person);
-		return new LinkedList<Book>();
+	public List<Book> getBooksRented(@PathParam("personId") Long id) {
+		Person foundPerson = pm.getPerson(id);
+		return pm.getBooksRentedByPerson(foundPerson);
 	}
 	
 	@GET

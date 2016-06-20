@@ -112,4 +112,14 @@ public class BookManagerTests {
 		Assert.assertEquals(person.getFirstName(), foundPerson.getFirstName());
 		Assert.assertEquals(person.getYob(), foundPerson.getYob());
 	}
+	@Test
+	public void checkGettingBorrowedBooksByPerson() {
+		checkBookRenting();
+		Person per = manager.getPersonByName("Teodor");
+		Assert.assertNotNull(per);
+
+		List<Book> books = manager.getBooksRentedByPerson(per);
+		Assert.assertNotNull(books);
+
+	}
 }
